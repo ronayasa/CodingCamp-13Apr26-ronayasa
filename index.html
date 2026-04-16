@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expense &amp; Budget Visualizer</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Header: app title and running balance -->
+  <header>
+    <h1>Expense &amp; Budget Visualizer</h1>
+    <div class="balance-display">
+      <span class="balance-label">Total Spent:</span>
+      <span id="total-balance">$0.00</span>
+    </div>
+  </header>
+
+  <!-- Toggle button to switch between main view and monthly summary -->
+  <div class="view-toggle">
+    <button id="toggle-view-btn" type="button">Monthly Summary</button>
+  </div>
+
+  <!-- Main view -->
+  <main id="main-view">
+
+    <!-- Transaction input form -->
+    <section class="form-section">
+      <h2>Add Transaction</h2>
+      <form id="transaction-form" novalidate>
+        <div class="form-group">
+          <label for="item-name">Item Name</label>
+          <input
+            type="text"
+            id="item-name"
+            name="item-name"
+            placeholder="e.g. Coffee"
+            autocomplete="off"
+          />
+          <span class="field-error" id="item-name-error" aria-live="polite"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="item-amount">Amount ($)</label>
+          <input
+            type="number"
+            id="item-amount"
+            name="item-amount"
+            placeholder="0.00"
+            min="0.01"
+            step="0.01"
+          />
+          <span class="field-error" id="item-amount-error" aria-live="polite"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="item-category">Category</label>
+          <select id="item-category" name="item-category">
+            <option value="">-- Select category --</option>
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Fun">Fun</option>
+          </select>
+          <span class="field-error" id="item-category-error" aria-live="polite"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Transaction</button>
+      </form>
+    </section>
+
+    <!-- Budget alert banners -->
+    <div id="budget-alerts" aria-live="polite"></div>
+
+    <!-- Budget limits section -->
+    <section class="budget-limits-section">
+      <h2>Monthly Budget Limits</h2>
+      <div class="budget-inputs">
+        <div class="form-group">
+          <label for="budget-food">Food ($)</label>
+          <input type="number" id="budget-food" name="budget-food" placeholder="0.00" min="0.01" step="0.01" />
+        </div>
+        <div class="form-group">
+          <label for="budget-transport">Transport ($)</label>
+          <input type="number" id="budget-transport" name="budget-transport" placeholder="0.00" min="0.01" step="0.01" />
+        </div>
+        <div class="form-group">
+          <label for="budget-fun">Fun ($)</label>
+          <input type="number" id="budget-fun" name="budget-fun" placeholder="0.00" min="0.01" step="0.01" />
+        </div>
+      </div>
+      <button type="button" id="save-budget-btn" class="btn btn-secondary">Save Budget Limits</button>
+    </section>
+
+    <!-- Sort controls -->
+    <section class="sort-controls-section">
+      <div id="sort-controls">
+        <!-- Populated by renderSortControls() -->
+      </div>
+    </section>
+
+    <!-- Transaction list -->
+    <section class="transaction-list-section">
+      <h2>Transactions</h2>
+      <ul id="transaction-list" aria-label="Transaction list">
+        <!-- Populated by renderTransactionList() -->
+      </ul>
+    </section>
+
+    <!-- Spending pie chart -->
+    <section class="chart-section">
+      <h2>Spending by Category</h2>
+      <div class="chart-container">
+        <canvas id="spending-chart" aria-label="Spending pie chart" role="img"></canvas>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Monthly summary view (hidden by default) -->
+  <section id="monthly-summary" style="display:none;" aria-label="Monthly summary">
+    <h2>Monthly Summary</h2>
+    <div id="monthly-summary-content">
+      <!-- Populated by renderMonthlySummary() -->
+    </div>
+  </section>
+
+  <!-- Chart.js from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <!-- App logic -->
+  <script src="js/app.js"></script>
+</body>
+</html>
